@@ -55,14 +55,11 @@ export default function Home() {
   const [isFullTime, setIsFullTime] = useState(false);
   
   const pages = [];
-  for (let i = activePagination; i > 0; i--) {
+  for (let i = 0; i <= activePagination; i++) {
     pages.push(
       <Page key={i} index={i} location={location} description={description} isFullTime={isFullTime} />
     );
   }
-
-
-  console.log(pages, "ini dia")
 
   const submitFilter = (value: any) => {
     setLocation(value.location)
