@@ -14,18 +14,21 @@ function middleware(request: NextRequest) {
   const accessToken = request.cookies.get(TOKEN_KEY);
 
   const startWithLogin = url.startsWith('/login');
+  console.log(startWithLogin, "ini dia")
   const isHaveToken = accessToken !== undefined;
 
   // // Aktifkan jika ingin menggunakan auth
   if (isHaveToken) {
     if (startWithLogin) {
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.redirect(new URL('/job', request.url));
     }
   } else {
-    const isAccessingProtectedPage = !excludePathCheckingToken(url);
+    if(!startWithLogin){
+      const isAccessingProtectedPage = !excludePathCheckingToken(url);
 
-    if (isAccessingProtectedPage) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      if (isAccessingProtectedPage) {
+        return NextResponse.redirect(new URL('/login', request.url));
+      }
     }
   }
 
